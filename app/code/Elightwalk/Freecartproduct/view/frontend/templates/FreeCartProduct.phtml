@@ -1,0 +1,30 @@
+<?php $currentProduct = $block->getCurrentProduct(); ?>
+<?php if($currentProduct->getFreeproductAttribute()) : ?>
+	<?php $skuEntered   = $this->helper('Elightwalk\Freecartproduct\Helper\Data')->getConfig('freecart/general/freeproduct_sku'); ?>
+	<?php $productTitle = $this->helper('Elightwalk\Freecartproduct\Helper\Data')->getConfig('freecart/general/freeproduct_heading'); ?>
+	<?php if(!empty($skuEntered) && !empty($block->freeProductData($skuEntered))) : ?>
+		<?php $_product     = $block->freeProductData($skuEntered); ?>
+		<?php $productImage = $this->helper('Magento\Catalog\Helper\Image')->init($_product, 'product_small_image'); ?>
+		<div class="freecart-product">
+			<?php if(!empty($productTitle)) : ?>
+				<div class="block-title title">
+					<strong role="heading"><?php echo $productTitle; ?></strong>
+				</div>
+			<?php endif; ?>
+			<div class="product-item-info">
+				<a class="product photo product-item-photo" href="<?php echo $_product->getProductUrl(); ?>">
+					<span class="product-image-container" style="width:152px;">
+						<span class="product-image-wrapper" style="padding-bottom: 125%;">
+							<img class="product-image-photo" src="<?php if($productImage->getUrl()) : echo $productImage->getUrl(); endif; ?>" max-width="152" max-height="190" alt="<?php echo $_product->getName(); ?>">
+						</span>
+					</span>
+				</a>
+				<div class="product details product-item-details">
+					<strong class="product name product-item-name" style="text-align: center;">
+						<?php echo $_product->getName(); ?>
+					</strong>
+				</div>
+			</div>
+		</div>
+	<?php endif; ?>
+<?php endif; ?>
